@@ -1,18 +1,13 @@
 import mongoose from 'mongoose'
 
 /* PetSchema will correspond to a collection in your MongoDB database. */
-const GroupSchema = new mongoose.Schema({
-  groupName: {
-    type: String,
-    maxLength: [ 20, 'Group name cannot be more than 20 characters' ]
-  },
-
+const RoomSchema = new mongoose.Schema({
   name: {
-    /* The name of this pet */
-
     type: String,
-    required: [true, 'Please provide a name for this pet.'],
-    maxlength: [60, 'Name cannot be more than 60 characters'],
+    maxLength: [ 20, 'Room name cannot be more than 20 characters' ]
+  },
+  creator: {
+    type: String
   },
   owner_name: {
     /* The owner of this pet */
@@ -61,4 +56,4 @@ const GroupSchema = new mongoose.Schema({
   },
 })
 
-export default mongoose.models.Group || mongoose.model('Group', GroupSchema)
+export default mongoose.models.Room || mongoose.model('Room', RoomSchema)
