@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useContext } from 'react';
 
 import { GlobalContext } from './_app';
+import { Header } from 'components/Header';
+import { NewRoomBtn } from 'components/buttons/NewRoom';
 
 import {
   Flex,
@@ -30,8 +32,8 @@ export default function Home() {
       <Flex
         direction='column'
       >
-        <Text>{ userValue.name }</Text>
-        <Image src={ userValue.avatar } alt={ userValue.name } />
+        <Header />
+        <NewRoomBtn />
       </Flex>
     )
   }

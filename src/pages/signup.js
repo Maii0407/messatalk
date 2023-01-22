@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
 
+import { returnRandomSeed } from "lib/diceBearAvatar";
+
 import {
   Button,
   Flex,
@@ -20,14 +22,16 @@ export default function SignUp() {
 
   const [ userName, setUserName ] = useState('');
 
-  //TODO complete this by implementing the localstorage logic for user auth
   const handleClick = async () => {
     if( userName !== '' ) {
       const avatar = await createAvatar( adventurerNeutral, {
+        seed: returnRandomSeed(),
+        backgroundType: [ 'gradientLinear' ],
+        backgroundColor: [ "b6e3f4","c0aede","d1d4f9", 'ffd5dc', 'ffdfbf' ],
+        glasses: [ 'variant01', 'variant02', 'variant03', 'variant04', 'variant05' ],
+        glassesProbability: 70,
         radius: 40,
-        backgroundColor: [ 'b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf' ]
       }).toDataUri();
-      // const svg = avatar.toString();
 
       const userObj = {
         name: `${ userName }-${ nanoid(10) }`,
