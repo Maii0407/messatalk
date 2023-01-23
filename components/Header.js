@@ -18,6 +18,10 @@ export const Header = () => {
       padding='5px'
       backgroundColor='gray.900'
       gap='10px'
+      position='fixed'
+      top='0'
+      right='0'
+      width='100%'
     >
       <Image
         src={ userValue.avatar }

@@ -1,37 +1,34 @@
-import React, { useContext } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
-import { GlobalContext } from '@/pages/_app';
+import { NewRoomForm } from 'components/forms/NewRoom';
 
-import { Button } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+} from '@chakra-ui/react';
 
 export const NewRoomBtn = () => {
-  const { userValue } = useContext( GlobalContext );
-
-//this functions call the API page room/create to create new room
-  const handleClick = async () => {
-    try {
-      const response = await axios({
-        method: 'post',
-        url: '/api/room/create',
-        data: {
-          name: 'new room',
-          creator: userValue.name
-        },
-      });
-
-      return response.data;
-    }
-    catch( error ) {
-      console.log({ error });
-    }
-  }
+  const [ showForm, setShowForm ] = useState( false );
 
   return (
-    <Button
-      onClick={ () => handleClick() }
+    <Flex
+      width='100%'
+      position='fixed'
+      bottom='0'
+      right='0'
+      padding='10px'
+      justifyContent='end'
     >
-      + New Room
-    </Button>
+      <Button
+        onClick={ () => setShowForm( true ) }
+      >
+        + New Room
+      </Button>
+
+      {
+        showForm ? <NewRoomForm setShowForm={ setShowForm } />
+        : null
+      }
+    </Flex>
   );
 }

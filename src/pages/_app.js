@@ -11,7 +11,7 @@ const theme = extendTheme({
         border: '2px solid',
         borderColor: 'gray.500'
       }
-    }
+    },
   },
   styles: {
     global: {
