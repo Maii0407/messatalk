@@ -6,9 +6,8 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  creator: {
-    type: String
-  },
+  creator: { type: String },
+  date: { type: Date }
 })
 
 export default mongoose.models.Room || mongoose.model('Room', RoomSchema)

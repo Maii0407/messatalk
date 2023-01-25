@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 import { GlobalContext } from '@/pages/_app';
 
@@ -16,6 +17,7 @@ export const NewRoomForm = ({ setShowForm }) => {
   const [ roomName, setRoomName ] = useState('');
 
   const toast = useToast();
+  const router = useRouter();
 
   //this functions call the API page room/create to create new room
   const handleClick = async () => {
@@ -58,6 +60,7 @@ export const NewRoomForm = ({ setShowForm }) => {
         })
 
         setShowForm( false );
+        router.replace('/');
       }
     }
   }

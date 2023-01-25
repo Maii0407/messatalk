@@ -1,10 +1,13 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useContext } from 'react';
+
+import dbConnect from 'lib/dbConnect';
+import Room from 'model/Room';
 
 import { GlobalContext } from './_app';
 import { Header } from 'components/Header';
 import { NewRoomBtn } from 'components/buttons/NewRoom';
+import { RoomComp } from 'components/RoomComponent';
 
 import {
   Flex,
@@ -12,11 +15,9 @@ import {
   Text
 } from "@chakra-ui/react"
 
-export default function Home() {
+export default function Home({ allRooms }) {
   const { userValue, setUserValue } = useContext( GlobalContext );
   const router = useRouter();
-
-  const array = [ 1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,7,8,9,0 ]
 
   useEffect(() => {
     const user = JSON.parse( localStorage.getItem( 'userObj' ));
@@ -30,24 +31,49 @@ export default function Home() {
   }, []);
 
   if( userValue ) {
+    console.log({ allRooms });
+
     return (
       <Flex
         direction='column'
         marginTop='60px'
       >
         <Header />
-        {/* <Flex
+
+        <Flex
           marginBottom='100px'
           direction='column'
+          gap='10px'
         >
           {
-            array.map(( element ) => {
-              return <Text>{ element }</Text>
+            allRooms.map(( element ) => {
+              return <RoomComp key={ element._id } roomData={ element } />
             })
           }
-        </Flex> */}
+        </Flex>
+
         <NewRoomBtn />
       </Flex>
     )
   }
 }
+
+export async function getServerSideProps() {
+  try {
+    await dbConnect();
+
+    const allRooms = await Room.find().sort({ date: -1 });
+
+    return {
+      props: {
+        allRooms: JSON.parse( JSON.stringify( allRooms )),
+      }
+    }
+  }
+  catch( error ) {
+    console.log({ error });
+    return {
+      notFound: true
+    }
+  }
+};

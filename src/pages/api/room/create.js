@@ -10,6 +10,7 @@ export default async function handler( req, res ) {
       const newRoom = new Room({
         name: req.body.name,
         creator: req.body.creator,
+        date: new Date()
       });
 
       newRoom.save();
